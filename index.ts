@@ -17,27 +17,15 @@ app.use("/api/auth", authRouter);
 app.use("/api/subs", subsRouter);
 app.use("/api/artists", artistsRouter);
 
-if (
-  process.env.NODE_ENV === "production" ||
-  process.env.NODE_ENV === "heroku_production"
-) {
+if (process.env.NODE_ENV === "production") {
   app.use(
     "/",
-    express.static(
-      path.join(__dirname, "..", "client", "dist", "music-subs-client")
-    )
+    express.static(path.join(__dirname, "..", "client", "dist", "client"))
   );
 
   app.get("*", (_req: Request, res: Response) => {
     res.sendFile(
-      path.resolve(
-        __dirname,
-        "..",
-        "client",
-        "dist",
-        "music-subs-client",
-        "index.html"
-      )
+      path.resolve(__dirname, "..", "client", "dist", "client", "index.html")
     );
   });
 }
