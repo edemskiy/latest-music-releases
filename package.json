@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "App to view the latest releases of your favorite musicians",
   "main": "index.js",
+  "engines": {
+    "node": "12.13.1",
+    "npm": "6.4.1"
+  },
   "scripts": {
     "start": "node build/app.js",
     "build": "tsc",
