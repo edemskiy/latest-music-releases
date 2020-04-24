@@ -16,5 +16,6 @@
     "forceConsistentCasingInFileNames": true
   },
   //"files": ["custom.d.ts"],
-  "types": ["node"]
+  "types": ["node"],
+  "exclude": ["client"]
 }
