@@ -11,7 +11,7 @@
     "start": "node build/app.js",
     "build": "tsc",
     "dev": "nodemon --exec ts-node --files index.ts",
-    "heroku-postbuild": "tsc && cd client && npm install && ng build --prod"
+    "heroku-postbuild": "tsc && cd client && npm install && node_modules/.bin/ng build --prod"
   },
   "keywords": [
     "angular",
