@@ -17,7 +17,10 @@ app.use("/api/auth", authRouter);
 app.use("/api/subs", subsRouter);
 app.use("/api/artists", artistsRouter);
 
-if (process.env.NODE_ENV === "production") {
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "heroku_production"
+) {
   app.use(
     "/",
     express.static(
