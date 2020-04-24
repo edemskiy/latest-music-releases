@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="content" *ngIf="!isLoading; else loader">
+    <div class="artists-list"></div>
+    <div class="releases">
+      <div class="no-content" *ngIf="!artists.length">
+        <h1>You don't follow any artists</h1>
+        <button class="btn" [routerLink]="['/search']">find artists</button>
+      </div>
+      <div class="no-content" *ngIf="!latestReleases.length && artists.length">
+        <h1>There aren't any latest releases of your artists</h1>
+        <button class="btn" [routerLink]="['/search']">
+          find more artists
+        </button>
+      </div>
+
+      <div class="filter-buttons" *ngIf="latestReleases.length">
+        <button
+          class="btn"
+          (click)="setFilter('')"
+          [class.active]="releaseFilter === ''"
+        >
+          All
+        </button>
+        <button
+          class="btn"
+          (click)="setFilter('album')"
+          [class.active]="releaseFilter === 'album'"
+        >
+          Albums
+        </button>
+        <button
+          class="btn"
+          (click)="setFilter('single')"
+          [class.active]="releaseFilter === 'single'"
+        >
+          Singles
+        </button>
+      </div>
+
+      <div class="albums-grid">
+        <app-album-card
+          *ngFor="let album of latestReleases | releases: releaseFilter"
+          [album]="album"
+        >
+        </app-album-card>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loader>
+    <h1 class="loader">Loading...</h1>
+  </ng-template>
+</div>

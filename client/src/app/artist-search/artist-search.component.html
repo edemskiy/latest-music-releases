@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="search">
+    <input
+      (input)="searchForArtist($event.target.value)"
+      placeholder="search for artist..."
+      type="text"
+    />
+  </div>
+  <div class="search-results" *ngIf="searchResults.length">
+    <div class="artist-card" *ngFor="let artist of searchResults">
+      <div class="image-wrapper">
+        <div class="image">
+          <img [src]="artist.picture_medium" />
+        </div>
+        <div
+          class="subscribe"
+          [style.opacity]="subscriptionsIds.includes(artist.id) ? 1 : 0"
+          (click)="onArtistClick(artist)"
+        >
+          <div class="checked">
+            {{ subscriptionsIds.includes(artist.id) ? "✓" : "" }}
+          </div>
+        </div>
+      </div>
+      <div class="name">
+        {{ artist.name }}
+      </div>
+    </div>
+  </div>
+</div>

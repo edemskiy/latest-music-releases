@@ -1,0 +1,41 @@
+h1 {
+  margin-top: 4rem;
+  text-align: center;
+  font-weight: 300;
+}
+
+form {
+  margin: 2rem auto;
+  padding: 1rem;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #fff;
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    &.ng-invalid.ng-touched {
+      border: 2px solid rgb(255, 100, 100);
+    }
+    &.ng-valid.ng-touched {
+      border: 2px solid rgb(126, 255, 100);
+    }
+  }
+  .buttons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    button {
+      width: 100%;
+      &:not(:first-child) {
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  .validation {
+    color: rgb(255, 100, 100);
+  }
+}

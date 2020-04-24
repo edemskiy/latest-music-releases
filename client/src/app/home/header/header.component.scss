@@ -1,0 +1,38 @@
+@import "../../../theme.scss";
+
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  z-index: 9999;
+  padding: 0.5rem 0;
+  box-sizing: content-box;
+  background-color: $main-backgound-color;
+  border-bottom: 1px solid rgba($color: white, $alpha: 0.5);
+}
+.empty-block {
+  height: 70px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  nav ul {
+    display: flex;
+    list-style-type: none;
+    li {
+      margin-left: 1rem;
+      &.active {
+        color: $main-theme-color;
+      }
+    }
+  }
+}
+
+.logout {
+  color: white;
+  border: none;
+}

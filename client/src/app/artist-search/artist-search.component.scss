@@ -1,0 +1,80 @@
+@import "../../theme.scss";
+
+$image-base-size: 180px;
+$image-small-size: 120px;
+
+.search {
+  width: 100%;
+  margin-top: 2rem;
+  text-align: center;
+
+  input {
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem;
+    font-size: 1rem;
+    background: none;
+    color: white;
+    border: 1px solid $main-theme-color;
+  }
+}
+
+.search-results {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+
+  .artist-card {
+    max-width: $image-base-size;
+    text-align: center;
+    margin: 1rem;
+    @media screen and (max-width: 480px) {
+      max-width: $image-small-size;
+      margin: 0.6rem;
+    }
+    .image-wrapper {
+      position: relative;
+      .image,
+      .subscribe {
+        height: $image-base-size;
+        width: $image-base-size;
+        @media screen and (max-width: 480px) {
+          height: $image-small-size;
+          width: $image-small-size;
+        }
+      }
+      .image {
+        img {
+          width: 100%;
+          border-radius: 50%;
+          transition: all 0.3s;
+        }
+      }
+      .subscribe {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        border-radius: 50%;
+        transition: opacity 0.4s;
+        background-color: rgba($color: #000000, $alpha: 0.7);
+        &:hover {
+          opacity: 1 !important;
+        }
+
+        .checked {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 3rem;
+        }
+      }
+    }
+    .name {
+      margin-top: 1rem;
+    }
+  }
+}

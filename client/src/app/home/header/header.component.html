@@ -1,0 +1,22 @@
+<div class="header-wrapper">
+  <div class="container">
+    <header>
+      <nav class="navbar">
+        <ul>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a [routerLink]="['/']">Home</a>
+          </li>
+          <li routerLinkActive="active">
+            <a [routerLink]="['/', 'search']">Search</a>
+          </li>
+        </ul>
+      </nav>
+      <h1>♫</h1>
+      <button class="btn logout" (click)="logout()">logout</button>
+    </header>
+  </div>
+</div>
+<div class="empty-block"></div>

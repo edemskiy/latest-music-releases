@@ -1,0 +1,24 @@
+<div class="album">
+  <img class="album-cover" [src]="album.cover_medium" [alt]="album.title" />
+  <div class="album-info">
+    <div class="album-title">
+      <a [href]="album.link" target="_blank" rel="noopener noreferrer">
+        {{ album.title }}
+      </a>
+    </div>
+    <div class="artist-name">
+      by{{ " " }}
+      <a
+        [href]="'https://www.deezer.com/artist/' + album.artistId"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ album.artistName }}
+      </a>
+    </div>
+    <div class="type-and-date">
+      {{ album.record_type }} &#8226;
+      {{ album.release_date | date: "dd LLLL yyyy" }}
+    </div>
+  </div>
+</div>
