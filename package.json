@@ -8,7 +8,7 @@
     "npm": "6.4.1"
   },
   "scripts": {
-    "start": "node build/app.js",
+    "start": "node build/index.js",
     "build": "tsc",
     "dev": "nodemon --exec ts-node --files index.ts",
     "heroku-postbuild": "tsc && cd client && npm install && node_modules/.bin/ng build --prod"
