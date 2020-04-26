@@ -15,6 +15,7 @@ export class ArtistsService {
       headers: { auth: this.auth.token },
     });
   }
+
   searchForArtist(query: string) {
     return this.http.get(`/api/artists/search?name=${query}`, {
       headers: { auth: this.auth.token },
@@ -39,6 +40,12 @@ export class ArtistsService {
 
   getRealtedArtists(artistId: number) {
     return this.http.get(`/api/artists/${artistId}/related`, {
+      headers: { auth: this.auth.token },
+    });
+  }
+
+  getArtistReleases(artistId: number) {
+    return this.http.get(`api/artists/${artistId}/albums`, {
       headers: { auth: this.auth.token },
     });
   }

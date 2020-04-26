@@ -12,6 +12,7 @@ import { HeaderComponent } from './home/header/header.component';
 import { ArtistSearchComponent } from './artist-search/artist-search.component';
 import { AlbumCardComponent } from './subs/album-card/album-card.component';
 import { ReleasesPipe } from './shared/releases.pipe';
+import { ArtistsListComponent } from './subs/artists-list/artists-list.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ReleasesPipe } from './shared/releases.pipe';
     ArtistSearchComponent,
     AlbumCardComponent,
     ReleasesPipe,
+    ArtistsListComponent,
   ],
   imports: [
     BrowserModule,

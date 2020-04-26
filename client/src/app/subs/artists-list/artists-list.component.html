@@ -1,0 +1,16 @@
+<div class="artists-list-wrapper">
+  <div class="buttons">
+    <button class="btn" (click)="onClose()">Close</button>
+    <button class="btn">Edit</button>
+  </div>
+  <div class="artists-list">
+    <div
+      class="artist"
+      *ngFor="let artist of artists"
+      (click)="onArtistClick(artist.id)"
+    >
+      <img class="artist-image" [src]="artist.picture_small" />
+      <div class="artist-name">{{ artist.name }}</div>
+    </div>
+  </div>
+</div>

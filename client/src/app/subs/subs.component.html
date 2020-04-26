@@ -1,6 +1,5 @@
 <div class="container">
   <div class="content" *ngIf="!isLoading; else loader">
-    <div class="artists-list"></div>
     <div class="releases">
       <div class="no-content" *ngIf="!artists.length">
         <h1>You don't follow any artists</h1>
@@ -13,28 +12,33 @@
         </button>
       </div>
 
-      <div class="filter-buttons" *ngIf="latestReleases.length">
-        <button
-          class="btn"
-          (click)="setFilter('')"
-          [class.active]="releaseFilter === ''"
-        >
-          All
+      <div class="subs-menu">
+        <button class="btn show-artsts-btn" (click)="openListOfArtists()">
+          Show your artists
         </button>
-        <button
-          class="btn"
-          (click)="setFilter('album')"
-          [class.active]="releaseFilter === 'album'"
-        >
-          Albums
-        </button>
-        <button
-          class="btn"
-          (click)="setFilter('single')"
-          [class.active]="releaseFilter === 'single'"
-        >
-          Singles
-        </button>
+        <div class="filter-buttons" *ngIf="latestReleases.length">
+          <button
+            class="btn"
+            (click)="setFilter('')"
+            [class.active]="releaseFilter === ''"
+          >
+            All
+          </button>
+          <button
+            class="btn"
+            (click)="setFilter('album')"
+            [class.active]="releaseFilter === 'album'"
+          >
+            Albums
+          </button>
+          <button
+            class="btn"
+            (click)="setFilter('single')"
+            [class.active]="releaseFilter === 'single'"
+          >
+            Singles
+          </button>
+        </div>
       </div>
 
       <div class="albums-grid">
@@ -51,3 +55,10 @@
     <h1 class="loader">Loading...</h1>
   </ng-template>
 </div>
+
+<app-artists-list
+  *ngIf="isListOfArtistsVisible"
+  (close)="closeListOfArtists()"
+  (pickArtist)="loadArtstReleases($event)"
+  [artists]="artists"
+></app-artists-list>

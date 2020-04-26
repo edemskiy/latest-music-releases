@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SubsService } from '../shared/subs.service';
 import { IArtist } from '../../../../models/artist.model';
 import { ReleaseType, IAlbum } from '../shared/interfaces';
+import { ArtistsService } from '../shared/artists.service';
 
 @Component({
   selector: 'app-subs',
@@ -13,7 +14,11 @@ export class SubsComponent implements OnInit {
   latestReleases: IAlbum[];
   releaseFilter: ReleaseType = '';
   isLoading = true;
-  constructor(private subsService: SubsService) {}
+  isListOfArtistsVisible = false;
+  constructor(
+    private subsService: SubsService,
+    private artistsService: ArtistsService
+  ) {}
 
   ngOnInit(): void {
     this.subsService.getSubs().subscribe((res: any) => {
@@ -26,5 +31,22 @@ export class SubsComponent implements OnInit {
 
   setFilter(filter: ReleaseType) {
     this.releaseFilter = filter;
+  }
+
+  loadArtstReleases(artistId: number = null) {
+    this.closeListOfArtists();
+    this.isLoading = true;
+    this.artistsService.getArtistReleases(artistId).subscribe((res: any) => {
+      this.latestReleases = res.albums;
+      this.isLoading = false;
+    });
+  }
+
+  openListOfArtists() {
+    this.isListOfArtistsVisible = true;
+  }
+
+  closeListOfArtists() {
+    this.isListOfArtistsVisible = false;
   }
 }

@@ -30,13 +30,34 @@
     width: 100%;
   }
 
-  .filter-buttons {
+  .subs-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 2rem 0;
-    button.btn {
-      width: 90px;
-      color: white;
-      &.active {
-        background-color: rgba($color: $main-theme-color, $alpha: 0.6);
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      flex-direction: column;
+      .show-artsts-btn {
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+    }
+    .filter-buttons {
+      margin-left: 2rem;
+      button.btn {
+        width: 80px;
+        color: white;
+        &.active {
+          background-color: rgba($color: $main-theme-color, $alpha: 0.6);
+        }
+        @media screen and (max-width: 480px) {
+          width: 33.33%;
+        }
+      }
+      @media screen and (max-width: 480px) {
+        width: 100%;
+        margin-left: 0;
       }
     }
   }

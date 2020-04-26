@@ -1,0 +1,48 @@
+@import "../../../theme.scss";
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  button {
+    width: 100%;
+  }
+}
+
+.artists-list-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  min-height: 100vh;
+  z-index: 9999;
+  overflow-y: auto;
+  background-color: $main-background-color;
+  border-right: 1px solid grey;
+  .artists-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem 0;
+    .artist {
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      .artist-image {
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+      }
+      .artist-name {
+        margin-left: 1rem;
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
