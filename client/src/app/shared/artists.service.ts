@@ -27,6 +27,16 @@ export class ArtistsService {
     });
   }
 
+  unsubscribeFromArtist(artistId: number) {
+    return this.http.post(
+      '/api/artists/unsubscribe',
+      { artistId },
+      {
+        headers: { auth: this.auth.token },
+      }
+    );
+  }
+
   getRealtedArtists(artistId: number) {
     return this.http.get(`/api/artists/${artistId}/related`, {
       headers: { auth: this.auth.token },

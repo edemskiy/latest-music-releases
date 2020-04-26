@@ -35,12 +35,18 @@ export class ArtistSearchComponent implements OnInit {
   }
 
   subscribeToArtist(artist: IArtist) {
-    if (this.subscriptionsIds.includes(artist.id)) {
-      return;
-    }
     this.subscriptionsIds.push(artist.id);
     this.artistsService
       .subscribeToArtist(artist)
+      .subscribe((res) => console.log(res));
+  }
+
+  unsubscribeFromAtrist(artistId: number) {
+    this.subscriptionsIds = this.subscriptionsIds.filter(
+      (id) => id !== artistId
+    );
+    this.artistsService
+      .unsubscribeFromArtist(artistId)
       .subscribe((res) => console.log(res));
   }
 
@@ -59,7 +65,11 @@ export class ArtistSearchComponent implements OnInit {
   }
 
   onArtistClick(artist: IArtist) {
-    this.subscribeToArtist(artist);
-    this.recommendRelatedArtists(artist.id);
+    if (this.subscriptionsIds.includes(artist.id)) {
+      this.unsubscribeFromAtrist(artist.id);
+    } else {
+      this.subscribeToArtist(artist);
+      this.recommendRelatedArtists(artist.id);
+    }
   }
 }

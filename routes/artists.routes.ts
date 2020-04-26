@@ -23,10 +23,16 @@ artistsRouter.post("/subscribe", auth, async (req: Request, res: Response) => {
     if (!user) {
       return res.status(500).json({ message: "User not found" });
     }
+    const userArtists = user.artists as Types.ObjectId[];
     let artist = { ...req.body };
     const possibleArtist = await Artist.findOne({ id: artist.id });
     if (possibleArtist) {
-      (user.artists as Types.ObjectId[]).push(possibleArtist._id);
+      if (userArtists.includes(possibleArtist._id)) {
+        return res
+          .status(409)
+          .json({ message: `Already subscribed to ${possibleArtist.name}` });
+      }
+      userArtists.push(possibleArtist._id);
       user.save();
       return res
         .status(201)
@@ -37,11 +43,39 @@ artistsRouter.post("/subscribe", auth, async (req: Request, res: Response) => {
     if (!newArtist) {
       return res.status(500).json({ message: "Failed to add artist" });
     }
-    (user.artists as Types.ObjectId[]).push(newArtist._id);
+    userArtists.push(newArtist._id);
     user.save();
     return res.status(201).json({ message: `Subscribed to ${newArtist.name}` });
   } catch (error) {}
 });
+
+artistsRouter.post(
+  "/unsubscribe",
+  auth,
+  async (req: Request, res: Response) => {
+    try {
+      const user = await User.findById(req.userId);
+      if (!user) {
+        return res.status(500).json({ message: "User not found" });
+      }
+      const { artistId } = req.body;
+
+      const artist = await Artist.findOne({ id: artistId });
+      if (!artist) {
+        return res.status(500).json({ message: "Artist not found" });
+      }
+
+      user.artists = (user.artists as Types.ObjectId[]).filter(
+        (artistId) => !artistId.equals(artist._id)
+      );
+
+      user.save();
+      return res
+        .status(201)
+        .json({ message: `Unsubscribed from ${artist.name}` });
+    } catch (error) {}
+  }
+);
 
 artistsRouter.get("/search", auth, async (req: Request, res: Response) => {
   try {
