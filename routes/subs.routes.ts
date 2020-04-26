@@ -13,7 +13,9 @@ subsRouter.get("/", auth, async (req: Request, res: Response) => {
     if (!user) {
       return res.status(500).json({ message: "User not found" });
     }
-    const artists = user.artists as IArtist[];
+    const artists = (user.artists as IArtist[]).sort((a, b) =>
+      a.name < b.name ? -1 : 1
+    );
     const allAlbums = await Promise.all(
       artists.map((artist) =>
         rp(`https://api.deezer.com/artist/${artist.id}/albums`)
