@@ -8,6 +8,7 @@ import { IAlbum } from 'src/app/shared/interfaces';
 })
 export class AlbumCardComponent implements OnInit {
   @Input() album: IAlbum;
+  @Input() showArtistName: boolean;
   constructor() {}
 
   ngOnInit(): void {}

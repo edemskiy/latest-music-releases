@@ -7,6 +7,9 @@
       </div>
       <div class="no-content" *ngIf="!latestReleases.length && artists.length">
         <h1>There aren't any latest releases of your artists</h1>
+        <button class="btn" (click)="openListOfArtists()">
+          Show your artists
+        </button>
         <button class="btn" [routerLink]="['/search']">
           find more artists
         </button>
@@ -45,6 +48,7 @@
         <app-album-card
           *ngFor="let album of latestReleases | releases: releaseFilter"
           [album]="album"
+          [showArtistName]="showAllArtists"
         >
         </app-album-card>
       </div>
@@ -60,5 +64,6 @@
   *ngIf="isListOfArtistsVisible"
   (close)="closeListOfArtists()"
   (pickArtist)="loadArtstReleases($event)"
+  (unsubscribe)="unsubscribeFromArtist($event)"
   [artists]="artists"
 ></app-artists-list>

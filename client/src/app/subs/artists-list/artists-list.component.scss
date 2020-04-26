@@ -10,7 +10,7 @@
   }
 }
 
-.artists-list-wrapper {
+:host {
   position: fixed;
   top: 0;
   left: 0;
@@ -31,6 +31,7 @@
       padding: 0.5rem 1rem;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       .artist-image {
         height: 35px;
         width: 35px;
@@ -38,6 +39,18 @@
       }
       .artist-name {
         margin-left: 1rem;
+      }
+      .unsubscribe {
+        padding: 0.2rem 0.5rem;
+        background: none;
+        font-size: 0.8rem;
+        color: indianred;
+        border: 1px solid indianred;
+        &:hover {
+          cursor: pointer;
+          color: rgb(212, 33, 33);
+          border-color: rgb(212, 33, 33);
+        }
       }
       &:hover {
         cursor: pointer;

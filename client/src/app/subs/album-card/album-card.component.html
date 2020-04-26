@@ -6,7 +6,7 @@
         {{ album.title }}
       </a>
     </div>
-    <div class="artist-name">
+    <div *ngIf="showArtistName" class="artist-name">
       by{{ " " }}
       <a
         [href]="'https://www.deezer.com/artist/' + album.artistId"

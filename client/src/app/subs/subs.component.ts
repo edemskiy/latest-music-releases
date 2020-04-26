@@ -15,31 +15,51 @@ export class SubsComponent implements OnInit {
   releaseFilter: ReleaseType = '';
   isLoading = true;
   isListOfArtistsVisible = false;
+  showAllArtists = true;
   constructor(
     private subsService: SubsService,
     private artistsService: ArtistsService
   ) {}
 
   ngOnInit(): void {
-    this.subsService.getSubs().subscribe((res: any) => {
-      console.log(res);
-      this.artists = res.artists;
-      this.latestReleases = res.latest_releases;
-      this.isLoading = false;
-    });
+    this.loadAllLatestReleases();
   }
 
   setFilter(filter: ReleaseType) {
     this.releaseFilter = filter;
   }
 
-  loadArtstReleases(artistId: number = null) {
+  loadAllLatestReleases() {
+    this.subsService.getSubs().subscribe((res: any) => {
+      this.artists = res.artists;
+      this.latestReleases = res.latest_releases;
+      this.isLoading = false;
+      this.showAllArtists = true;
+    });
+  }
+
+  loadArtstReleases(artistId: number | null) {
     this.closeListOfArtists();
     this.isLoading = true;
-    this.artistsService.getArtistReleases(artistId).subscribe((res: any) => {
-      this.latestReleases = res.albums;
-      this.isLoading = false;
-    });
+    if (artistId === null) {
+      this.loadAllLatestReleases();
+    } else {
+      this.artistsService.getArtistReleases(artistId).subscribe((res: any) => {
+        this.latestReleases = res.albums;
+        this.isLoading = false;
+        this.showAllArtists = false;
+      });
+    }
+  }
+
+  unsubscribeFromArtist(artistId: number) {
+    this.artists = this.artists.filter((artist) => artist.id !== artistId);
+    this.latestReleases = this.latestReleases.filter(
+      (album) => album.artistId !== artistId
+    );
+    this.artistsService
+      .unsubscribeFromArtist(artistId)
+      .subscribe((res) => console.log(res));
   }
 
   openListOfArtists() {

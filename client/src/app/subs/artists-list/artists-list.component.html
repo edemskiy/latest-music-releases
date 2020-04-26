@@ -1,16 +1,32 @@
-<div class="artists-list-wrapper">
-  <div class="buttons">
-    <button class="btn" (click)="onClose()">Close</button>
-    <button class="btn">Edit</button>
+<div class="buttons">
+  <button class="btn" (click)="onClose()">Close</button>
+  <button class="btn" (click)="onEdit()">
+    {{ isEditing ? "Save" : "Edit" }}
+  </button>
+</div>
+<div class="artists-list">
+  <div class="artist" (click)="onArtistClick()">
+    <div class="d-flex-center">
+      <img class="artist-image" src="../../../assets/person-icon.png" />
+      <div class="artist-name">All</div>
+    </div>
   </div>
-  <div class="artists-list">
-    <div
-      class="artist"
-      *ngFor="let artist of artists"
-      (click)="onArtistClick(artist.id)"
-    >
+
+  <div
+    class="artist"
+    *ngFor="let artist of artists"
+    (click)="onArtistClick(artist.id)"
+  >
+    <div class="d-flex-center">
       <img class="artist-image" [src]="artist.picture_small" />
       <div class="artist-name">{{ artist.name }}</div>
     </div>
+    <button
+      *ngIf="isEditing"
+      class="unsubscribe"
+      (click)="onUnsubscribe(artist.id)"
+    >
+      Unsubscribe
+    </button>
   </div>
 </div>

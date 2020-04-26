@@ -13,6 +13,7 @@ import { ArtistSearchComponent } from './artist-search/artist-search.component';
 import { AlbumCardComponent } from './subs/album-card/album-card.component';
 import { ReleasesPipe } from './shared/releases.pipe';
 import { ArtistsListComponent } from './subs/artists-list/artists-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ArtistsListComponent } from './subs/artists-list/artists-list.component
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
