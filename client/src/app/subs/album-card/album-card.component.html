@@ -8,11 +8,7 @@
     </div>
     <div *ngIf="showArtistName" class="artist-name">
       by{{ " " }}
-      <a
-        [href]="'https://www.deezer.com/artist/' + album.artistId"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a [href]="'https://www.deezer.com/artist/' + album.artistId" target="_blank" rel="noopener noreferrer">
         {{ album.artistName }}
       </a>
     </div>

@@ -12,20 +12,12 @@
     </div>
   </div>
 
-  <div
-    class="artist"
-    *ngFor="let artist of artists"
-    (click)="onArtistClick(artist.id)"
-  >
+  <div class="artist" *ngFor="let artist of artists" (click)="onArtistClick(artist.id)">
     <div class="d-flex-center">
       <img class="artist-image" [src]="artist.picture_small" />
       <div class="artist-name">{{ artist.name }}</div>
     </div>
-    <button
-      *ngIf="isEditing"
-      class="unsubscribe"
-      (click)="onUnsubscribe(artist.id)"
-    >
+    <button *ngIf="isEditing" class="unsubscribe" (click)="onUnsubscribe(artist.id)">
       Unsubscribe
     </button>
   </div>

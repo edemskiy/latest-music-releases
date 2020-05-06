@@ -28,15 +28,11 @@ artistsRouter.post("/subscribe", auth, async (req: Request, res: Response) => {
     const possibleArtist = await Artist.findOne({ id: artist.id });
     if (possibleArtist) {
       if (userArtists.includes(possibleArtist._id)) {
-        return res
-          .status(409)
-          .json({ message: `Already subscribed to ${possibleArtist.name}` });
+        return res.status(409).json({ message: `Already subscribed to ${possibleArtist.name}` });
       }
       userArtists.push(possibleArtist._id);
       user.save();
-      return res
-        .status(201)
-        .json({ message: `subscribed to ${possibleArtist.name}` });
+      return res.status(201).json({ message: `subscribed to ${possibleArtist.name}` });
     }
 
     let newArtist = await new Artist(artist).save();
@@ -49,42 +45,29 @@ artistsRouter.post("/subscribe", auth, async (req: Request, res: Response) => {
   } catch (error) {}
 });
 
-artistsRouter.post(
-  "/unsubscribe",
-  auth,
-  async (req: Request, res: Response) => {
-    try {
-      const user = await User.findById(req.userId);
-      if (!user) {
-        return res.status(500).json({ message: "User not found" });
-      }
-      const { artistId } = req.body;
+artistsRouter.post("/unsubscribe", auth, async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(500).json({ message: "User not found" });
+    }
+    const { artistId } = req.body;
 
-      const artist = await Artist.findOne({ id: artistId });
-      if (!artist) {
-        return res.status(500).json({ message: "Artist not found" });
-      }
+    const artist = await Artist.findOne({ id: artistId });
+    if (!artist) {
+      return res.status(500).json({ message: "Artist not found" });
+    }
 
-      user.artists = (user.artists as Types.ObjectId[]).filter(
-        (artistId) => !artistId.equals(artist._id)
-      );
-
-      user.save();
-      return res
-        .status(201)
-        .json({ message: `Unsubscribed from ${artist.name}` });
-    } catch (error) {}
-  }
-);
+    user.artists = (user.artists as Types.ObjectId[]).filter((artistId) => !artistId.equals(artist._id));
+    user.save();
+    return res.status(201).json({ message: `Unsubscribed from ${artist.name}` });
+  } catch (error) {}
+});
 
 artistsRouter.get("/search", auth, async (req: Request, res: Response) => {
   try {
-    const searchResponse = await rp(
-      `https://api.deezer.com/search/artist?q=${req.query.name}`
-    );
-    const artists = JSON.parse(searchResponse)?.data.filter(
-      (artist: IArtist) => artist.name.length < 50
-    );
+    const searchResponse = await rp(`https://api.deezer.com/search/artist?q=${req.query.name}`);
+    const artists = JSON.parse(searchResponse)?.data.filter((artist: IArtist) => artist.name.length < 50);
     return res.status(200).json({ artists });
   } catch (error) {
     console.log("Server error", error);
@@ -93,9 +76,7 @@ artistsRouter.get("/search", auth, async (req: Request, res: Response) => {
 
 artistsRouter.get("/:id/related", auth, async (req: Request, res: Response) => {
   try {
-    const artistsResponse = await rp(
-      `https://api.deezer.com/artist/${req.params.id}/related`
-    );
+    const artistsResponse = await rp(`https://api.deezer.com/artist/${req.params.id}/related`);
     const artists = JSON.parse(artistsResponse)?.data;
     return res.status(200).json({ artists });
   } catch (error) {
@@ -105,13 +86,9 @@ artistsRouter.get("/:id/related", auth, async (req: Request, res: Response) => {
 
 artistsRouter.get("/:id/albums", auth, async (req: Request, res: Response) => {
   try {
-    const albumsResponse = await rp(
-      `https://api.deezer.com/artist/${req.params.id}/albums`
-    );
+    const albumsResponse = await rp(`https://api.deezer.com/artist/${req.params.id}/albums`);
     const albums = JSON.parse(albumsResponse)
-      ?.data.filter(
-        (album: any) => !album.title.toLowerCase().includes("remix")
-      )
+      .data.filter((album: any) => !album.title.toLowerCase().includes("remix"))
       .sort((a: any, b: any) => (a.release_date <= b.release_date ? 1 : -1));
     return res.status(200).json({ albums });
   } catch (error) {

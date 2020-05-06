@@ -16,10 +16,7 @@ export class SubsComponent implements OnInit {
   isLoading = true;
   isListOfArtistsVisible = false;
   showAllArtists = true;
-  constructor(
-    private subsService: SubsService,
-    private artistsService: ArtistsService
-  ) {}
+  constructor(private subsService: SubsService, private artistsService: ArtistsService) {}
 
   ngOnInit(): void {
     this.loadAllLatestReleases();
@@ -54,12 +51,8 @@ export class SubsComponent implements OnInit {
 
   unsubscribeFromArtist(artistId: number) {
     this.artists = this.artists.filter((artist) => artist.id !== artistId);
-    this.latestReleases = this.latestReleases.filter(
-      (album) => album.artistId !== artistId
-    );
-    this.artistsService
-      .unsubscribeFromArtist(artistId)
-      .subscribe((res) => console.log(res));
+    this.latestReleases = this.latestReleases.filter((album) => album.artistId !== artistId);
+    this.artistsService.unsubscribeFromArtist(artistId).subscribe((res) => console.log(res));
   }
 
   openListOfArtists() {

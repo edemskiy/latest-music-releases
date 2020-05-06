@@ -22,14 +22,10 @@ export class AuthService {
   }
 
   register(login: string, password: string) {
-    return this.http
-      .post('/api/auth/register', { login, password })
-      .pipe(tap(this.setToken));
+    return this.http.post('/api/auth/register', { login, password }).pipe(tap(this.setToken));
   }
   login(login: string, password: string) {
-    return this.http
-      .post('/api/auth/login', { login, password })
-      .pipe(tap(this.setToken));
+    return this.http.post('/api/auth/login', { login, password }).pipe(tap(this.setToken));
   }
 
   logout() {

@@ -20,25 +20,13 @@
           Show your artists
         </button>
         <div class="filter-buttons" *ngIf="latestReleases.length">
-          <button
-            class="btn"
-            (click)="setFilter('')"
-            [class.active]="releaseFilter === ''"
-          >
+          <button class="btn" (click)="setFilter('')" [class.active]="releaseFilter === ''">
             All
           </button>
-          <button
-            class="btn"
-            (click)="setFilter('album')"
-            [class.active]="releaseFilter === 'album'"
-          >
+          <button class="btn" (click)="setFilter('album')" [class.active]="releaseFilter === 'album'">
             Albums
           </button>
-          <button
-            class="btn"
-            (click)="setFilter('single')"
-            [class.active]="releaseFilter === 'single'"
-          >
+          <button class="btn" (click)="setFilter('single')" [class.active]="releaseFilter === 'single'">
             Singles
           </button>
         </div>

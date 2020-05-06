@@ -13,13 +13,9 @@ subsRouter.get("/", auth, async (req: Request, res: Response) => {
     if (!user) {
       return res.status(500).json({ message: "User not found" });
     }
-    const artists = (user.artists as IArtist[]).sort((a, b) =>
-      a.name < b.name ? -1 : 1
-    );
+    const artists = (user.artists as IArtist[]).sort((a, b) => (a.name < b.name ? -1 : 1));
     const allAlbums = await Promise.all(
-      artists.map((artist) =>
-        rp(`https://api.deezer.com/artist/${artist.id}/albums`)
-      )
+      artists.map((artist) => rp(`https://api.deezer.com/artist/${artist.id}/albums`))
     );
     const startDate: string = moment().subtract(4, "M").format("YYYY-MM-DD");
 
@@ -32,11 +28,7 @@ subsRouter.get("/", auth, async (req: Request, res: Response) => {
         }))
       )
       .flat()
-      .filter(
-        (album) =>
-          album.release_date > startDate &&
-          !album.title.toLowerCase().includes("remix")
-      )
+      .filter((album) => album.release_date > startDate && !album.title.toLowerCase().includes("remix"))
       .sort((a, b) => (a.release_date <= b.release_date ? 1 : -1));
     return res.status(201).json({ latest_releases, artists });
   } catch (error) {

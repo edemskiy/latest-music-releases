@@ -14,11 +14,9 @@ export class ArtistSearchComponent implements OnInit {
   constructor(private artistsService: ArtistsService) {}
 
   ngOnInit(): void {
-    this.artistsService
-      .getArtists()
-      .subscribe((res: { artists: IArtist[] }) => {
-        this.subscriptionsIds = res.artists.map((artist) => artist.id);
-      });
+    this.artistsService.getArtists().subscribe((res: { artists: IArtist[] }) => {
+      this.subscriptionsIds = res.artists.map((artist) => artist.id);
+    });
   }
 
   searchForArtist(query: string) {
@@ -36,18 +34,12 @@ export class ArtistSearchComponent implements OnInit {
 
   subscribeToArtist(artist: IArtist) {
     this.subscriptionsIds.push(artist.id);
-    this.artistsService
-      .subscribeToArtist(artist)
-      .subscribe((res) => console.log(res));
+    this.artistsService.subscribeToArtist(artist).subscribe((res) => console.log(res));
   }
 
   unsubscribeFromAtrist(artistId: number) {
-    this.subscriptionsIds = this.subscriptionsIds.filter(
-      (id) => id !== artistId
-    );
-    this.artistsService
-      .unsubscribeFromArtist(artistId)
-      .subscribe((res) => console.log(res));
+    this.subscriptionsIds = this.subscriptionsIds.filter((id) => id !== artistId);
+    this.artistsService.unsubscribeFromArtist(artistId).subscribe((res) => console.log(res));
   }
 
   recommendRelatedArtists(artistId: number) {
@@ -57,9 +49,7 @@ export class ArtistSearchComponent implements OnInit {
           !this.subscriptionsIds.includes(artist.id) &&
           !this.searchResults.map((artist) => artist.id).includes(artist.id)
       );
-      const artistIndex = this.searchResults.findIndex(
-        (artist) => artist.id === artistId
-      );
+      const artistIndex = this.searchResults.findIndex((artist) => artist.id === artistId);
       this.searchResults.splice(artistIndex + 1, 0, ...artistsToRecommend);
     });
   }
